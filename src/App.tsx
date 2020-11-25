@@ -1,9 +1,8 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
-
+import { Button, Container } from "@material-ui/core";
+import { getPage } from "./lib/utils";
 export const theme = createMuiTheme({
   palette: {
     primary: {
@@ -16,9 +15,14 @@ export const theme = createMuiTheme({
 });
 
 function App() {
+  const pathname = getPage();
   return (
     <ThemeProvider theme={theme}>
-      <Button variant="contained">Talent Br'UT</Button>
+      <Container>
+        <Button variant="contained" color="primary">
+          {pathname}
+        </Button>
+      </Container>
     </ThemeProvider>
   );
 }

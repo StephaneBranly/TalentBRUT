@@ -5,7 +5,7 @@ import React, { Component } from "react";
 export class Navbar extends Component {
   render() {
     return (
-      <AppBar position="sticky">
+      <AppBar position="sticky" id="navbar">
         <Toolbar>
           <Grid
             container

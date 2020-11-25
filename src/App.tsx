@@ -4,6 +4,9 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Button, Container } from "@material-ui/core";
 import { getPage } from "./lib/utils";
 import { Navbar } from "./components/navbar";
+import { TalentVoteCard } from "./components/talentVote";
+import { Homepage } from "./components/homepage";
+
 export const theme = createMuiTheme({
   palette: {
     primary: {
@@ -19,11 +22,9 @@ const page = () => {
   const pathname = getPage();
   switch (pathname) {
     case "home":
-      return (
-        <Button variant="contained" color="primary">
-          Homepage
-        </Button>
-      );
+      return <Homepage />;
+    case "talent":
+      return <TalentVoteCard />;
     default:
       return (
         <Button variant="contained" color="primary">

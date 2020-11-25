@@ -3,26 +3,41 @@ import "./App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Button, Container } from "@material-ui/core";
 import { getPage } from "./lib/utils";
+import { Navbar } from "./components/navbar";
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#05b592",
+      main: "#ab0237",
     },
     secondary: {
-      main: "#f2c7f2",
+      main: "#fad20a",
     },
   },
 });
 
-function App() {
+const page = () => {
   const pathname = getPage();
+  switch (pathname) {
+    case "home":
+      return (
+        <Button variant="contained" color="primary">
+          Homepage
+        </Button>
+      );
+    default:
+      return (
+        <Button variant="contained" color="primary">
+          DEFAULT PAGE
+        </Button>
+      );
+  }
+};
+
+function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Container>
-        <Button variant="contained" color="primary">
-          {pathname}
-        </Button>
-      </Container>
+      <Navbar></Navbar>
+      <Container>{page()}</Container>
     </ThemeProvider>
   );
 }

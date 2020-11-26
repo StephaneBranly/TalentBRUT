@@ -1,4 +1,3 @@
-import classes from "*.module.css";
 import {
   AppBar,
   Toolbar,
@@ -7,9 +6,8 @@ import {
   Breadcrumbs,
   Link,
 } from "@material-ui/core";
-import { Home, Person, Group } from "@material-ui/icons";
+import { Home, Person, Group, Business, ContactMail } from "@material-ui/icons";
 import React, { Component } from "react";
-import curtainnav from "../images/curtainnav.png";
 
 export class Navbar extends Component {
   render() {
@@ -32,6 +30,14 @@ export class Navbar extends Component {
                 <Link color="inherit" href="teams">
                   <Group />
                   Teams
+                </Link>
+                <Link color="inherit" href="sponsors">
+                  <Business />
+                  Sponsors
+                </Link>
+                <Link color="inherit" href="contact">
+                  <ContactMail />
+                  Contact
                 </Link>
               </Breadcrumbs>
             </Grid>

@@ -2,7 +2,11 @@
   text-align: center;
 }
 body {
-  background-color: #413d3b;
+  background-image: url("./images/stage-background.jpg");
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #navbar {

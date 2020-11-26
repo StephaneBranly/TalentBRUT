@@ -11,7 +11,7 @@ import { Teams } from "./components/teams";
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#ab0237",
+      main: "#7b0207",
     },
     secondary: {
       main: "#f5f2f5",

@@ -6,15 +6,16 @@ import {
   Button,
   Breadcrumbs,
   Link,
-  Typography,
 } from "@material-ui/core";
-import { Grain, Home, Person, Group } from "@material-ui/icons";
+import { Home, Person, Group } from "@material-ui/icons";
 import React, { Component } from "react";
+import curtainnav from "../images/curtainnav.png";
 
 export class Navbar extends Component {
   render() {
     return (
       <AppBar position="sticky" id="navbar">
+        {/* <img src={curtainnav} /> */}
         <Toolbar>
           <Grid
             container

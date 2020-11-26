@@ -4,18 +4,16 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { Grid, IconButton } from "@material-ui/core";
+import { Favorite, ThumbUp } from "@material-ui/icons";
 
 export class TalentVoteCard extends Component {
   render() {
     return (
       <Card>
         <CardActionArea>
-          <CardMedia
-            image="https://www.magicelites.com/blog-magicien/wp-content/uploads/2015/11/Magicien-Riche.jpg"
-            title="Contemplative Reptile"
-          />
+          <CardMedia image="orchestre.jpg" title="Contemplative Reptile" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               Lizard
@@ -27,12 +25,18 @@ export class TalentVoteCard extends Component {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item>
+              <IconButton>
+                <Favorite style={{ color: "#FF0000" }} />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <IconButton>
+                <ThumbUp style={{ color: "#0F0FFF" }} />
+              </IconButton>
+            </Grid>
+          </Grid>
         </CardActions>
       </Card>
     );

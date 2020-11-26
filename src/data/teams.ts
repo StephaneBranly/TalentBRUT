@@ -19,7 +19,7 @@ export const teams =
             },
             {
                 status : "Secrétaire Général",
-                resp: true,
+                resp: false,
                 name : "Amelie BAPTEE",
             }
         ]

@@ -12,16 +12,16 @@ import {
   Avatar,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
-import { render } from "@testing-library/react";
 import React, { Component } from "react";
 import { teams } from "../data/teams";
 
 const avatarGroupRender = (team: any) => {
   const mapped = team.composition.map((member: any) => {
     const firstLetter = member.name[0].toUpperCase();
+    const borderColor = member.resp ? "#ab0237" : "#A0A0A0";
     return (
       <Grid item>
-        <Avatar>{firstLetter}</Avatar>
+        <Avatar style={{ backgroundColor: borderColor }}>{firstLetter}</Avatar>
       </Grid>
     );
   });

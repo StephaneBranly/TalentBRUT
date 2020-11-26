@@ -1,5 +1,14 @@
-import { AppBar, Toolbar, Grid, Button } from "@material-ui/core";
-import { Person } from "@material-ui/icons";
+import classes from "*.module.css";
+import {
+  AppBar,
+  Toolbar,
+  Grid,
+  Button,
+  Breadcrumbs,
+  Link,
+  Typography,
+} from "@material-ui/core";
+import { Grain, Home, Person, Group } from "@material-ui/icons";
 import React, { Component } from "react";
 
 export class Navbar extends Component {
@@ -14,12 +23,16 @@ export class Navbar extends Component {
             alignItems="center"
           >
             <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="flex-start"
-                alignItems="center"
-              ></Grid>
+              <Breadcrumbs separator="|">
+                <Link color="inherit" href="home">
+                  <Home />
+                  Accueil
+                </Link>
+                <Link color="inherit" href="teams">
+                  <Group />
+                  Teams
+                </Link>
+              </Breadcrumbs>
             </Grid>
             <Grid item>
               <Button

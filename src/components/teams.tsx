@@ -18,9 +18,10 @@ import { teams } from "../data/teams";
 
 const avatarGroupRender = (team: any) => {
   const mapped = team.composition.map((member: any) => {
+    const firstLetter = member.name[0].toUpperCase();
     return (
       <Grid item>
-        <Avatar>S</Avatar>
+        <Avatar>{firstLetter}</Avatar>
       </Grid>
     );
   });
@@ -61,7 +62,7 @@ const teamsRender = teams.content.map((team) => {
   );
 });
 
-export class Team extends Component {
+export class Teams extends Component {
   render() {
     return (
       <Grid

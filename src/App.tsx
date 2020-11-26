@@ -6,7 +6,7 @@ import { getPage } from "./lib/utils";
 import { Navbar } from "./components/navbar";
 import { TalentVoteCard } from "./components/talentVote";
 import { Homepage } from "./components/homepage";
-import { Team } from "./components/team";
+import { Teams } from "./components/teams";
 
 export const theme = createMuiTheme({
   palette: {
@@ -26,8 +26,8 @@ const page = () => {
       return <Homepage />;
     case "talent":
       return <TalentVoteCard />;
-    case "team":
-      return <Team />;
+    case "teams":
+      return <Teams />;
     default:
       return (
         <Button variant="contained" color="primary">

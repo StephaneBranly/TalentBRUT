@@ -8,14 +8,19 @@ export const teams =
         composition:
         [
             {
-                role : "President",
+                status : "Président",
                 resp: true,
-                nom : "Pierre",
+                name : "Raphael LEDRU",
             },
             {
-                role : "President",
+                status : "Président",
                 resp: true,
-                nom : "Raphael",
+                name : "Pierre HANNART",
+            },
+            {
+                status : "Secrétaire Général",
+                resp: true,
+                name : "Amelie BAPTEE",
             }
         ]
     },
@@ -25,9 +30,45 @@ export const teams =
         composition:
         [
             {
-                role : "Responsable informatique",
+                status : "Responsable Informatique",
                 resp : true,
-                nom : "Stephane Branly"
+                name : "Stéphane BRANLY"
+            }
+        ]
+    },
+    {
+        name : "Communication",
+        description : "Description du pole Communication",
+        composition:
+        [
+            {
+                status : "Responsable Communication",
+                resp : true,
+                name : "Elisa SIMONNET"
+            }
+        ]
+    },
+    {
+        name : "Partenariat",
+        description : "Description du pole Partenariat",
+        composition:
+        [
+            {
+                status : "Responsable Partenariat",
+                resp : true,
+                name : "Taieb Rayan DOUDECH"
+            }
+        ]
+    },
+    {
+        name : "Logistique",
+        description : "Description du pole Logistique",
+        composition:
+        [
+            {
+                status : "Responsable Logistique",
+                resp : true,
+                name : "Lucie JOLIVOT"
             }
         ]
     }

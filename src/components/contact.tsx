@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import {
+  Button,
   Container,
   FormControl,
   Grid,
@@ -13,8 +14,9 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  TextField,
 } from "@material-ui/core";
-import { Favorite, ThumbUp } from "@material-ui/icons";
+import { Favorite, Send, ThumbUp } from "@material-ui/icons";
 
 export class Contact extends Component {
   render() {
@@ -28,33 +30,59 @@ export class Contact extends Component {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <FormControl variant="outlined">
-            <Container>
-              <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="stretch"
-              >
-                <Grid item>
+          <Container>
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="stretch"
+              spacing={2}
+            >
+              <Grid item>
+                <FormControl fullWidth>
                   <InputLabel htmlFor="why">Objet du contact</InputLabel>
                   <Select label="WHY">
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Sponsoring</MenuItem>
+                    <MenuItem value={20}>Talent</MenuItem>
+                    <MenuItem value={30}>Communication</MenuItem>
+                    <MenuItem value={40}>Teams</MenuItem>
+                    <MenuItem value={50}>Autre</MenuItem>
                   </Select>
-                </Grid>
-                <Grid item>
-                  <IconButton>
-                    <ThumbUp style={{ color: "#0F0FFF" }} />
-                  </IconButton>
-                </Grid>
+                </FormControl>
               </Grid>
-            </Container>
-          </FormControl>
+
+              <Grid item>
+                <FormControl fullWidth>
+                  <TextField id="standard-basic" label="Titre" />
+                </FormControl>
+              </Grid>
+
+              <Grid item>
+                <FormControl fullWidth>
+                  <TextField
+                    id="standard-basic"
+                    label="Votre email"
+                    type="email"
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid item>
+                <FormControl fullWidth>
+                  <TextField
+                    id="standard-basic"
+                    multiline
+                    label="Description"
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item>
+                <Button variant="contained" color="primary" endIcon={<Send />}>
+                  Envoyer
+                </Button>
+              </Grid>
+            </Grid>
+          </Container>
         </CardActions>
       </Card>
     );

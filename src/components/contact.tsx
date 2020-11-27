@@ -102,9 +102,11 @@ export class Contact extends Component<ContactProps, ContactState> {
       fetch(
         "https://assos.utc.fr/talentbrut/server/api/mail.php",
         requestOptions
-      )
-        .then((response) => response.json())
-        .then((data) => this.toggleStatus(true, "Mail envoye"));
+      ).then((response) => {
+        response.json();
+        this.toggleStatus(true, "Mail envoye");
+      });
+      // .then((data) => console.log.data);
     }
     this.toggleDialog(false);
   };
@@ -141,7 +143,11 @@ export class Contact extends Component<ContactProps, ContactState> {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button color="primary" onClick={() => this.toggleStatus(false)}>
+            <Button
+              color="primary"
+              autoFocus
+              onClick={() => this.toggleStatus(false)}
+            >
               OK
             </Button>
           </DialogActions>

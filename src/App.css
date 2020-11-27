@@ -2,9 +2,19 @@
   text-align: center;
 }
 body {
-  background-color: #413d3b;
+  background-image: url("./images/stage-background.jpg");
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-#navbar {
-  margin-bottom: 50px;
+#navbar .nav-page {
+  color: white;
+}
+#navbar .nav-page.selected {
+  text-decoration: underline;
+}
+#navbar .nav-page:hover {
+  cursor: pointer;
 }

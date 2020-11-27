@@ -5,4 +5,8 @@ const getPage = () => {
   return "home";
 };
 
-export { getPage };
+const changePage = (title: string, path: string) => {
+  window.history.pushState(title, title, path);
+};
+
+export { getPage, changePage };

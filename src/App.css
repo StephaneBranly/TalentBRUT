@@ -12,3 +12,10 @@ body {
 #navbar {
   margin-bottom: 50px;
 }
+
+#navbar .nav-page {
+  color: white;
+}
+#navbar .nav-page:hover {
+  cursor: pointer;
+}

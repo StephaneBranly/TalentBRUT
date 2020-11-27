@@ -4,7 +4,6 @@ import {
   Grid,
   Button,
   Breadcrumbs,
-  Link,
   Typography,
 } from "@material-ui/core";
 import { Home, Person, Group, Business, ContactMail } from "@material-ui/icons";
@@ -30,27 +29,37 @@ export class Navbar extends Component<NavbarProps> {
             <Grid item>
               <Breadcrumbs separator="|">
                 <Typography
+                  className="nav-page"
                   onClick={() => {
                     handlerChangePage("Nouvelle page", "home");
                   }}
                 >
-                  HOME
+                  Accueil
                 </Typography>
                 <Typography
+                  className="nav-page"
                   onClick={() => {
                     handlerChangePage("Nouvelle page", "teams");
                   }}
                 >
                   Teams
                 </Typography>
-                <Link color="inherit" href="sponsors">
-                  {/* <Business /> */}
+                <Typography
+                  className="nav-page"
+                  onClick={() => {
+                    handlerChangePage("Nouvelle page", "sponsors");
+                  }}
+                >
                   Sponsors
-                </Link>
-                <Link color="inherit" href="contact">
-                  {/* <ContactMail /> */}
+                </Typography>
+                <Typography
+                  className="nav-page"
+                  onClick={() => {
+                    handlerChangePage("Nouvelle page", "contact");
+                  }}
+                >
                   Contact
-                </Link>
+                </Typography>
               </Breadcrumbs>
             </Grid>
             <Grid item>

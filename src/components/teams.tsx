@@ -1,16 +1,10 @@
 import {
-  AppBar,
-  Toolbar,
   Grid,
-  Button,
-  Chip,
-  Card,
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Typography,
   Avatar,
-  Zoom,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import React, { Component } from "react";
@@ -36,32 +30,30 @@ const avatarGroupRender = (team: any) => {
 const teamsRender = teams.content.map((team) => {
   const avatarGroup = avatarGroupRender(team);
   return (
-    <Zoom in={true}>
-      <Grid key={team.name} item>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMore />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+    <Grid key={team.name} item>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMore />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
-            >
-              <Grid item>
-                <Typography>{team.name}</Typography>
-              </Grid>
-              <Grid item> {avatarGroup}</Grid>
+            <Grid item>
+              <Typography>{team.name}</Typography>
             </Grid>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>{team.description}</Typography>
-          </AccordionDetails>
-        </Accordion>
-      </Grid>
-    </Zoom>
+            <Grid item> {avatarGroup}</Grid>
+          </Grid>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>{team.description}</Typography>
+        </AccordionDetails>
+      </Accordion>
+    </Grid>
   );
 });
 

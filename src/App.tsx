@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Button, Container } from "@material-ui/core";
@@ -8,6 +8,8 @@ import { TalentVoteCard } from "./components/talentVote";
 import { Homepage } from "./components/homepage";
 import { Teams } from "./components/teams";
 import { Sponsors } from "./components/sponsors";
+
+import { changePage } from "./lib/utils";
 
 export const theme = createMuiTheme({
   palette: {
@@ -20,9 +22,8 @@ export const theme = createMuiTheme({
   },
 });
 
-const page = () => {
-  const pathname = getPage();
-  switch (pathname) {
+const renderPage = (page: string) => {
+  switch (page) {
     case "home":
       return <Homepage />;
     case "talent":
@@ -41,10 +42,17 @@ const page = () => {
 };
 
 function App() {
+  const [page, setPage] = useState(getPage());
+
+  const changePageApp = (title: string, path: string) => {
+    changePage(title, path);
+    setPage(path);
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <Navbar></Navbar>
-      <Container>{page()}</Container>
+      <Navbar handlerChangePage={changePageApp} />
+      <Container>{renderPage(page)}</Container>
     </ThemeProvider>
   );
 }

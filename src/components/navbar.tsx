@@ -5,12 +5,18 @@ import {
   Button,
   Breadcrumbs,
   Link,
+  Typography,
 } from "@material-ui/core";
 import { Home, Person, Group, Business, ContactMail } from "@material-ui/icons";
 import React, { Component } from "react";
 
-export class Navbar extends Component {
+export interface NavbarProps {
+  handlerChangePage: any;
+}
+
+export class Navbar extends Component<NavbarProps> {
   render() {
+    const { handlerChangePage } = this.props;
     return (
       <AppBar position="sticky" id="navbar">
         {/* <img src={curtainnav} /> */}
@@ -23,20 +29,26 @@ export class Navbar extends Component {
           >
             <Grid item>
               <Breadcrumbs separator="|">
-                <Link color="inherit" href="home">
-                  <Home />
-                  Accueil
-                </Link>
-                <Link color="inherit" href="teams">
-                  <Group />
+                <Typography
+                  onClick={() => {
+                    handlerChangePage("Nouvelle page", "home");
+                  }}
+                >
+                  HOME
+                </Typography>
+                <Typography
+                  onClick={() => {
+                    handlerChangePage("Nouvelle page", "teams");
+                  }}
+                >
                   Teams
-                </Link>
+                </Typography>
                 <Link color="inherit" href="sponsors">
-                  <Business />
+                  {/* <Business /> */}
                   Sponsors
                 </Link>
                 <Link color="inherit" href="contact">
-                  <ContactMail />
+                  {/* <ContactMail /> */}
                   Contact
                 </Link>
               </Breadcrumbs>

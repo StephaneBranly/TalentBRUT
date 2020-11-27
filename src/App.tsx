@@ -10,6 +10,7 @@ import { Teams } from "./components/teams";
 import { Sponsors } from "./components/sponsors";
 
 import { changePage } from "./lib/utils";
+import { Contact } from "./components/contact";
 
 export const theme = createMuiTheme({
   palette: {
@@ -32,6 +33,8 @@ const renderPage = (page: string) => {
       return <Teams />;
     case "sponsors":
       return <Sponsors />;
+    case "contact":
+      return <Contact />;
     default:
       return (
         <Button variant="contained" color="primary">

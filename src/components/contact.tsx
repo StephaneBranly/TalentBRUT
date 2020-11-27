@@ -66,7 +66,7 @@ export class Contact extends Component<ContactProps, ContactState> {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         from: email,
-        message: message,
+        message: message.replace(/\n/g, "<br />"),
         tag: tag,
         object: object,
       }),

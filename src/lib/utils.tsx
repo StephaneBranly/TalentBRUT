@@ -9,4 +9,9 @@ const changePage = (title: string, path: string) => {
   window.history.pushState(title, title, path);
 };
 
-export { getPage, changePage };
+const validateEmail = (email: string) => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
+export { getPage, changePage, validateEmail };

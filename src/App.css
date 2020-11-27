@@ -16,6 +16,9 @@ body {
 #navbar .nav-page {
   color: white;
 }
+#navbar .nav-page.selected {
+  text-decoration: underline;
+}
 #navbar .nav-page:hover {
   cursor: pointer;
 }

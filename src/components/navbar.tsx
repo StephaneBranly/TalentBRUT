@@ -11,11 +11,12 @@ import React, { Component } from "react";
 
 export interface NavbarProps {
   handlerChangePage: any;
+  currentPage: string;
 }
 
 export class Navbar extends Component<NavbarProps> {
   render() {
-    const { handlerChangePage } = this.props;
+    const { handlerChangePage, currentPage } = this.props;
     return (
       <AppBar position="sticky" id="navbar">
         {/* <img src={curtainnav} /> */}
@@ -29,7 +30,9 @@ export class Navbar extends Component<NavbarProps> {
             <Grid item>
               <Breadcrumbs separator="|">
                 <Typography
-                  className="nav-page"
+                  className={
+                    currentPage == "home" ? "nav-page selected" : "nav-page"
+                  }
                   onClick={() => {
                     handlerChangePage("Nouvelle page", "home");
                   }}
@@ -37,7 +40,9 @@ export class Navbar extends Component<NavbarProps> {
                   Accueil
                 </Typography>
                 <Typography
-                  className="nav-page"
+                  className={
+                    currentPage == "teams" ? "nav-page selected" : "nav-page"
+                  }
                   onClick={() => {
                     handlerChangePage("Nouvelle page", "teams");
                   }}
@@ -45,7 +50,9 @@ export class Navbar extends Component<NavbarProps> {
                   Teams
                 </Typography>
                 <Typography
-                  className="nav-page"
+                  className={
+                    currentPage == "sponsors" ? "nav-page selected" : "nav-page"
+                  }
                   onClick={() => {
                     handlerChangePage("Nouvelle page", "sponsors");
                   }}
@@ -53,7 +60,9 @@ export class Navbar extends Component<NavbarProps> {
                   Sponsors
                 </Typography>
                 <Typography
-                  className="nav-page"
+                  className={
+                    currentPage == "contact" ? "nav-page selected" : "nav-page"
+                  }
                   onClick={() => {
                     handlerChangePage("Nouvelle page", "contact");
                   }}

@@ -51,7 +51,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Navbar handlerChangePage={changePageApp} />
+      <Navbar handlerChangePage={changePageApp} currentPage={page} />
       <Container>{renderPage(page)}</Container>
     </ThemeProvider>
   );

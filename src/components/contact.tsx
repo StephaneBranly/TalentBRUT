@@ -25,6 +25,7 @@ import {
 } from "@material-ui/core";
 import { ArrowForwardIos, Favorite, Send, ThumbUp } from "@material-ui/icons";
 import { validateEmail } from "../lib/utils";
+import { Helmet } from "react-helmet";
 
 export interface ContactProps {
   notify: any;
@@ -119,6 +120,10 @@ export class Contact extends Component<ContactProps, ContactState> {
     const { object, message, tag, email, dialog } = this.state;
     return (
       <>
+        <Helmet>
+          <title>Talent Br'UT - Contact</title>
+          <meta name="description" content="Nested component" />
+        </Helmet>
         <Dialog open={dialog}>
           <DialogTitle id="alert-dialog-title">{"Mail"}</DialogTitle>
           <DialogContent>

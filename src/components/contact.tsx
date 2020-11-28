@@ -33,8 +33,6 @@ export interface ContactState {
   message: string;
   tag: string;
   dialog: boolean;
-  status: boolean;
-  statusM: string;
 }
 export class Contact extends Component<ContactProps, ContactState> {
   constructor(props: any) {
@@ -45,8 +43,6 @@ export class Contact extends Component<ContactProps, ContactState> {
       message: "",
       tag: "",
       dialog: false,
-      status: false,
-      statusM: "",
     };
     this.onChangeObject = this.onChangeObject.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -78,44 +74,47 @@ export class Contact extends Component<ContactProps, ContactState> {
       dialog: val,
     });
   }
-  toggleStatus(val: boolean, message: string = "") {
-    this.setState({
-      status: val,
-      statusM: message,
-    });
-  }
-  sendEmail = () => {
+
+  sendCheck = () => {
     const { object, message, tag, email } = this.state;
     const { notify } = this.props;
+
     if (!validateEmail(email)) {
       notify("error", "Adresse email invalide...");
     } else if (tag === "" || email === "" || object === "" || message === "") {
       notify("error", "Au moins un champ vide...");
     } else {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: email,
-          message: message.replace(/\n/g, "<br />"),
-          tag: tag,
-          object: object,
-        }),
-      };
-      fetch(
-        "https://assos.utc.fr/talentbrut/server/api/mail.php",
-        requestOptions
-      ).then((response) => {
-        response.json();
-        notify("success", "Mail envoye");
-      });
-      // .then((data) => console.log.data);
+      this.toggleDialog(true);
     }
+  };
+  sendEmail = () => {
+    const { object, message, tag, email } = this.state;
+    const { notify } = this.props;
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: email,
+        message: message.replace(/\n/g, "<br />"),
+        tag: tag,
+        object: object,
+      }),
+    };
+    fetch(
+      "https://assos.utc.fr/talentbrut/server/api/mail.php",
+      requestOptions
+    ).then((response) => {
+      response.json();
+      notify("success", "Mail envoye");
+    });
+    // .then((data) => console.log.data);
+
     this.toggleDialog(false);
   };
 
   render() {
-    const { object, message, tag, email, dialog, status, statusM } = this.state;
+    const { object, message, tag, email, dialog } = this.state;
     return (
       <>
         <Dialog open={dialog}>
@@ -212,7 +211,7 @@ export class Contact extends Component<ContactProps, ContactState> {
                     variant="contained"
                     color="primary"
                     endIcon={<Send />}
-                    onClick={() => this.toggleDialog(true)}
+                    onClick={() => this.sendCheck()}
                   >
                     Envoyer
                   </Button>

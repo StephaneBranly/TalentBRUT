@@ -11,6 +11,7 @@ import { Sponsors } from "./components/sponsors";
 
 import { changePage } from "./lib/utils";
 import { Contact } from "./components/contact";
+import { Notif } from "./components/notif";
 
 export const theme = createMuiTheme({
   palette: {
@@ -23,39 +24,69 @@ export const theme = createMuiTheme({
   },
 });
 
-const renderPage = (page: string) => {
-  switch (page) {
-    case "home":
-      return <Homepage />;
-    case "talent":
-      return <TalentVoteCard />;
-    case "teams":
-      return <Teams />;
-    case "sponsors":
-      return <Sponsors />;
-    case "contact":
-      return <Contact />;
-    default:
-      return (
-        <Button variant="contained" color="primary">
-          DEFAULT PAGE
-        </Button>
-      );
-  }
-};
-
 function App() {
   const [page, setPage] = useState(getPage());
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifSeverity, setNotifSeverity] = useState(
+    "success" as "success" | "info" | "warning" | "error" | undefined
+  );
+  const [notifMessage, setNotifMessage] = useState("Message de base");
 
   const changePageApp = (title: string, path: string) => {
     changePage(title, path);
     setPage(path);
   };
 
+  const renderPage = (page: string) => {
+    switch (page) {
+      case "home":
+        return <Homepage />;
+      case "talent":
+        return <TalentVoteCard />;
+      case "teams":
+        return <Teams />;
+      case "sponsors":
+        return <Sponsors />;
+      case "contact":
+        return <Contact notify={notify} />;
+      default:
+        return (
+          <Button variant="contained" color="primary">
+            DEFAULT PAGE
+          </Button>
+        );
+    }
+  };
+
+  const notify = (
+    severity: "success" | "info" | "warning" | "error" | undefined,
+    message: string
+  ) => {
+    setNotifSeverity(severity);
+    setNotifMessage(message);
+    setNotifOpen(true);
+  };
+
+  const handleCloseNotif = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setNotifOpen(false);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Navbar handlerChangePage={changePageApp} currentPage={page} />
       <Container>{renderPage(page)}</Container>
+      <Notif
+        open={notifOpen}
+        message={notifMessage}
+        severity={notifSeverity}
+        handleClose={handleCloseNotif}
+      />
     </ThemeProvider>
   );
 }

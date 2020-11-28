@@ -24,7 +24,9 @@ import {
 import { Favorite, Send, ThumbUp } from "@material-ui/icons";
 import { validateEmail } from "../lib/utils";
 
-export interface ContactProps {}
+export interface ContactProps {
+  notify: any;
+}
 export interface ContactState {
   object: string;
   email: string;
@@ -84,10 +86,11 @@ export class Contact extends Component<ContactProps, ContactState> {
   }
   sendEmail = () => {
     const { object, message, tag, email } = this.state;
+    const { notify } = this.props;
     if (!validateEmail(email)) {
-      this.toggleStatus(true, "Adresse email invalide...");
+      notify("error", "Adresse email invalide...");
     } else if (tag === "" || email === "" || object === "" || message === "") {
-      this.toggleStatus(true, "Au moins un champ vide...");
+      notify("error", "Au moins un champ vide...");
     } else {
       const requestOptions = {
         method: "POST",
@@ -104,7 +107,7 @@ export class Contact extends Component<ContactProps, ContactState> {
         requestOptions
       ).then((response) => {
         response.json();
-        this.toggleStatus(true, "Mail envoye");
+        notify("success", "Mail envoye");
       });
       // .then((data) => console.log.data);
     }
@@ -132,23 +135,6 @@ export class Contact extends Component<ContactProps, ContactState> {
             </Button>
             <Button color="primary" onClick={() => this.sendEmail()}>
               Envoyer
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Dialog open={status}>
-          <DialogTitle id="alert-dialog-title">{"Mail"}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {statusM}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              color="primary"
-              autoFocus
-              onClick={() => this.toggleStatus(false)}
-            >
-              OK
             </Button>
           </DialogActions>
         </Dialog>

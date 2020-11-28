@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import {
+  Box,
   Button,
   Container,
   Dialog,
@@ -16,12 +17,13 @@ import {
   FormControl,
   Grid,
   IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from "@material-ui/core";
-import { Favorite, Send, ThumbUp } from "@material-ui/icons";
+import { ArrowForwardIos, Favorite, Send, ThumbUp } from "@material-ui/icons";
 import { validateEmail } from "../lib/utils";
 
 export interface ContactProps {
@@ -79,10 +81,10 @@ export class Contact extends Component<ContactProps, ContactState> {
     const { object, message, tag, email } = this.state;
     const { notify } = this.props;
 
-    if (!validateEmail(email)) {
-      notify("error", "Adresse email invalide...");
-    } else if (tag === "" || email === "" || object === "" || message === "") {
+    if (tag === "" || email === "" || object === "" || message === "") {
       notify("error", "Au moins un champ vide...");
+    } else if (!validateEmail(email)) {
+      notify("error", "Adresse email invalide...");
     } else {
       this.toggleDialog(true);
     }
@@ -175,17 +177,6 @@ export class Contact extends Component<ContactProps, ContactState> {
                 <Grid item>
                   <FormControl fullWidth>
                     <TextField
-                      id="object"
-                      label="Titre"
-                      value={object}
-                      onChange={(e) => this.onChangeObject(e)}
-                    />
-                  </FormControl>
-                </Grid>
-
-                <Grid item>
-                  <FormControl fullWidth>
-                    <TextField
                       id="email"
                       label="Votre email"
                       type="email"
@@ -196,12 +187,33 @@ export class Contact extends Component<ContactProps, ContactState> {
                 </Grid>
 
                 <Grid item>
+                  <Box mt={5}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="object"
+                        label="Titre"
+                        value={object}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <ArrowForwardIos />
+                            </InputAdornment>
+                          ),
+                        }}
+                        onChange={(e) => this.onChangeObject(e)}
+                      />
+                    </FormControl>
+                  </Box>
+                </Grid>
+
+                <Grid item>
                   <FormControl fullWidth>
                     <TextField
                       id="message"
                       multiline
                       label="Description"
                       value={message}
+                      variant="outlined"
                       onChange={(e) => this.onChangeMessage(e)}
                     />
                   </FormControl>

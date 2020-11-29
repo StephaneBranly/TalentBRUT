@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import {
+  Box,
   Button,
   Container,
   Dialog,
@@ -16,23 +17,25 @@ import {
   FormControl,
   Grid,
   IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from "@material-ui/core";
-import { Favorite, Send, ThumbUp } from "@material-ui/icons";
+import { ArrowForwardIos, Favorite, Send, ThumbUp } from "@material-ui/icons";
 import { validateEmail } from "../lib/utils";
+import { Helmet } from "react-helmet";
 
-export interface ContactProps {}
+export interface ContactProps {
+  notify: any;
+}
 export interface ContactState {
   object: string;
   email: string;
   message: string;
   tag: string;
   dialog: boolean;
-  status: boolean;
-  statusM: string;
 }
 export class Contact extends Component<ContactProps, ContactState> {
   constructor(props: any) {
@@ -43,8 +46,6 @@ export class Contact extends Component<ContactProps, ContactState> {
       message: "",
       tag: "",
       dialog: false,
-      status: false,
-      statusM: "",
     };
     this.onChangeObject = this.onChangeObject.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -76,45 +77,53 @@ export class Contact extends Component<ContactProps, ContactState> {
       dialog: val,
     });
   }
-  toggleStatus(val: boolean, message: string = "") {
-    this.setState({
-      status: val,
-      statusM: message,
-    });
-  }
+
+  sendCheck = () => {
+    const { object, message, tag, email } = this.state;
+    const { notify } = this.props;
+
+    if (tag === "" || email === "" || object === "" || message === "") {
+      notify("error", "Au moins un champ vide...");
+    } else if (!validateEmail(email)) {
+      notify("error", "Adresse email invalide...");
+    } else {
+      this.toggleDialog(true);
+    }
+  };
   sendEmail = () => {
     const { object, message, tag, email } = this.state;
-    if (!validateEmail(email)) {
-      this.toggleStatus(true, "Adresse email invalide...");
-    } else if (tag === "" || email === "" || object === "" || message === "") {
-      this.toggleStatus(true, "Au moins un champ vide...");
-    } else {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: email,
-          message: message.replace(/\n/g, "<br />"),
-          tag: tag,
-          object: object,
-        }),
-      };
-      fetch(
-        "https://assos.utc.fr/talentbrut/server/api/mail.php",
-        requestOptions
-      ).then((response) => {
-        response.json();
-        this.toggleStatus(true, "Mail envoye");
-      });
-      // .then((data) => console.log.data);
-    }
+    const { notify } = this.props;
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: email,
+        message: message.replace(/\n/g, "<br />"),
+        tag: tag,
+        object: object,
+      }),
+    };
+    fetch(
+      "https://assos.utc.fr/talentbrut/server/api/mail.php",
+      requestOptions
+    ).then((response) => {
+      response.json();
+      notify("success", "Mail envoye");
+    });
+    // .then((data) => console.log.data);
+
     this.toggleDialog(false);
   };
 
   render() {
-    const { object, message, tag, email, dialog, status, statusM } = this.state;
+    const { object, message, tag, email, dialog } = this.state;
     return (
       <>
+        <Helmet>
+          <title>Talent Br'UT - Contact</title>
+          <meta name="description" content="Nested component" />
+        </Helmet>
         <Dialog open={dialog}>
           <DialogTitle id="alert-dialog-title">{"Mail"}</DialogTitle>
           <DialogContent>
@@ -132,23 +141,6 @@ export class Contact extends Component<ContactProps, ContactState> {
             </Button>
             <Button color="primary" onClick={() => this.sendEmail()}>
               Envoyer
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Dialog open={status}>
-          <DialogTitle id="alert-dialog-title">{"Mail"}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {statusM}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              color="primary"
-              autoFocus
-              onClick={() => this.toggleStatus(false)}
-            >
-              OK
             </Button>
           </DialogActions>
         </Dialog>
@@ -190,17 +182,6 @@ export class Contact extends Component<ContactProps, ContactState> {
                 <Grid item>
                   <FormControl fullWidth>
                     <TextField
-                      id="object"
-                      label="Titre"
-                      value={object}
-                      onChange={(e) => this.onChangeObject(e)}
-                    />
-                  </FormControl>
-                </Grid>
-
-                <Grid item>
-                  <FormControl fullWidth>
-                    <TextField
                       id="email"
                       label="Votre email"
                       type="email"
@@ -211,12 +192,33 @@ export class Contact extends Component<ContactProps, ContactState> {
                 </Grid>
 
                 <Grid item>
+                  <Box mt={5}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="object"
+                        label="Titre"
+                        value={object}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <ArrowForwardIos />
+                            </InputAdornment>
+                          ),
+                        }}
+                        onChange={(e) => this.onChangeObject(e)}
+                      />
+                    </FormControl>
+                  </Box>
+                </Grid>
+
+                <Grid item>
                   <FormControl fullWidth>
                     <TextField
                       id="message"
                       multiline
                       label="Description"
                       value={message}
+                      variant="outlined"
                       onChange={(e) => this.onChangeMessage(e)}
                     />
                   </FormControl>
@@ -226,7 +228,7 @@ export class Contact extends Component<ContactProps, ContactState> {
                     variant="contained"
                     color="primary"
                     endIcon={<Send />}
-                    onClick={() => this.toggleDialog(true)}
+                    onClick={() => this.sendCheck()}
                   >
                     Envoyer
                   </Button>

@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import React, { Component } from "react";
+import { Helmet } from "react-helmet";
 import { teams } from "../data/teams";
 
 const avatarGroupRender = (team: any) => {
@@ -60,15 +61,21 @@ const teamsRender = teams.content.map((team) => {
 export class Teams extends Component {
   render() {
     return (
-      <Grid
-        container
-        direction="column"
-        justify="space-evenly"
-        alignItems="stretch"
-        spacing={3}
-      >
-        {teamsRender}
-      </Grid>
+      <>
+        <Helmet>
+          <title>Talent Br'UT - Teams</title>
+          <meta name="description" content="Nested component" />
+        </Helmet>
+        <Grid
+          container
+          direction="column"
+          justify="space-evenly"
+          alignItems="stretch"
+          spacing={3}
+        >
+          {teamsRender}
+        </Grid>
+      </>
     );
   }
 }

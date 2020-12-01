@@ -14,4 +14,14 @@ const validateEmail = (email: string) => {
   return re.test(String(email).toLowerCase());
 };
 
-export { getPage, changePage, validateEmail };
+const isConnected = async (): Promise<any> => {
+  return new Promise<any>((result) => {
+    fetch("https://assos.utc.fr/talentbrut/server/api/authenticate.php").then(
+      (response) => {
+        result(response.json());
+      }
+    );
+  });
+};
+
+export { getPage, changePage, validateEmail, isConnected };

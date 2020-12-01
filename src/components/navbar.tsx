@@ -7,22 +7,45 @@ import {
   Typography,
   Box,
 } from "@material-ui/core";
-import { spacing } from "@material-ui/system";
-import { Home, Person, Group, Business, ContactMail } from "@material-ui/icons";
+import { Person } from "@material-ui/icons";
 import React, { Component } from "react";
+import { casURL } from "../data/vars";
+import { isConnected } from "../lib/utils";
 
 export interface NavbarProps {
   handlerChangePage: any;
   currentPage: string;
+  connected: boolean;
+  user: string;
+  handlerConnected: any;
 }
 
 export class Navbar extends Component<NavbarProps> {
+  async componentDidMount() {
+    const { handlerConnected } = this.props;
+    const data = await isConnected();
+    handlerConnected(data.connected, data.user);
+  }
+  login = () => {
+    const currentURL = window.location.href;
+    window.location.href =
+      "https://assos.utc.fr/talentbrut/server/api/login.php?from=" + currentURL;
+  };
+  logout = () => {
+    const { handlerConnected } = this.props;
+    handlerConnected(false, "");
+    window.open(
+      "https://assos.utc.fr/talentbrut/server/api/logout.php",
+      "_blank"
+    );
+  };
+
   render() {
-    const { handlerChangePage, currentPage } = this.props;
+    isConnected();
+    const { handlerChangePage, currentPage, connected, user } = this.props;
     return (
       <Box mb={3}>
         <AppBar position="sticky" id="navbar">
-          {/* <img src={curtainnav} /> */}
           <Toolbar>
             <Grid
               container
@@ -34,7 +57,7 @@ export class Navbar extends Component<NavbarProps> {
                 <Breadcrumbs separator="|">
                   <Typography
                     className={
-                      currentPage == "home" ? "nav-page selected" : "nav-page"
+                      currentPage === "home" ? "nav-page selected" : "nav-page"
                     }
                     onClick={() => {
                       handlerChangePage("Nouvelle page", "home");
@@ -44,7 +67,7 @@ export class Navbar extends Component<NavbarProps> {
                   </Typography>
                   <Typography
                     className={
-                      currentPage == "teams" ? "nav-page selected" : "nav-page"
+                      currentPage === "teams" ? "nav-page selected" : "nav-page"
                     }
                     onClick={() => {
                       handlerChangePage("Nouvelle page", "teams");
@@ -54,7 +77,7 @@ export class Navbar extends Component<NavbarProps> {
                   </Typography>
                   <Typography
                     className={
-                      currentPage == "sponsors"
+                      currentPage === "sponsors"
                         ? "nav-page selected"
                         : "nav-page"
                     }
@@ -66,7 +89,7 @@ export class Navbar extends Component<NavbarProps> {
                   </Typography>
                   <Typography
                     className={
-                      currentPage == "contact"
+                      currentPage === "contact"
                         ? "nav-page selected"
                         : "nav-page"
                     }
@@ -79,15 +102,29 @@ export class Navbar extends Component<NavbarProps> {
                 </Breadcrumbs>
               </Grid>
               <Grid item>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  size="large"
-                  component="span"
-                  startIcon={<Person />}
-                >
-                  login
-                </Button>
+                {connected ? (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    component="span"
+                    startIcon={<Person />}
+                    onClick={() => this.logout()}
+                  >
+                    {user}
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    component="span"
+                    startIcon={<Person />}
+                    onClick={() => this.login()}
+                  >
+                    login
+                  </Button>
+                )}
               </Grid>
             </Grid>
           </Toolbar>

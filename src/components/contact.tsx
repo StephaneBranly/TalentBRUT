@@ -83,7 +83,7 @@ export class Contact extends Component<ContactProps, ContactState> {
     const { notify } = this.props;
 
     if (tag === "" || email === "" || object === "" || message === "") {
-      notify("error", "Au moins un champ vide...");
+      notify("error", "Au moins un champ est vide...");
     } else if (!validateEmail(email)) {
       notify("error", "Adresse email invalide...");
     } else {
@@ -108,10 +108,12 @@ export class Contact extends Component<ContactProps, ContactState> {
       "https://assos.utc.fr/talentbrut/server/api/mail.php",
       requestOptions
     ).then((response) => {
-      response.json();
-      notify("success", "Mail envoye");
+      response.json().then((data) => {
+        if (data.status && data.status == 200)
+          notify("success", "Mail correctement envoyé");
+        else notify("warning", "Erreur interne, merci de réessayer plus tard.");
+      });
     });
-    // .then((data) => console.log.data);
 
     this.toggleDialog(false);
   };

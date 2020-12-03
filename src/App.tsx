@@ -27,6 +27,8 @@ export const theme = createMuiTheme({
 function App() {
   const [page, setPage] = useState(getPage());
   const [notifOpen, setNotifOpen] = useState(false);
+  const [connected, setConnected] = useState(false);
+  const [user, setUser] = useState("");
   const [notifSeverity, setNotifSeverity] = useState(
     "success" as "success" | "info" | "warning" | "error" | undefined
   );
@@ -36,7 +38,10 @@ function App() {
     changePage(title, path);
     setPage(path);
   };
-
+  const updateConnected = (connected: boolean, user: string) => {
+    setUser(user);
+    setConnected(connected);
+  };
   const renderPage = (page: string) => {
     switch (page) {
       case "home":
@@ -79,7 +84,13 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Navbar handlerChangePage={changePageApp} currentPage={page} />
+      <Navbar
+        handlerChangePage={changePageApp}
+        currentPage={page}
+        user={user}
+        connected={connected}
+        handlerConnected={updateConnected}
+      />
       <Container>{renderPage(page)}</Container>
       <Notif
         open={notifOpen}
